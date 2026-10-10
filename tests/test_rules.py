@@ -68,3 +68,17 @@ def test_invalid_configuration(text):
 def test_missing_columns_fail_loudly():
     with pytest.raises(ValueError, match="missing columns"):
         evaluate_rules(pd.DataFrame({"a": [1]}), load_rules("rules: [{column: b, type: required}]"))
+
+
+def test_text_rules_use_original_csv_lexemes():
+    from io import BytesIO
+
+    from catalogdoctor.ingestion import load_file
+
+    df = load_file(BytesIO(b"code\n12345\n54321\n"), "x.csv")
+    config = load_rules(
+        "rules: [{column: code, type: regex, pattern: '^[0-9]{5}$'}, "
+        "{column: code, type: string_length, min_length: 5, max_length: 5}, "
+        "{column: code, type: allowed_values, values: ['12345', '54321']}]"
+    )
+    assert not evaluate_rules(df, config)

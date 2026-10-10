@@ -152,6 +152,8 @@ def load_sqlite(
             raise ValueError("Unknown table; select an inspected table name.")
         relation = Table(table, MetaData(), autoload_with=engine)
         with engine.connect() as connection, connection.begin():
+            # sqlite3 legacy mode does not BEGIN on SELECT. Force a real snapshot.
+            connection.exec_driver_sql("BEGIN")
             # One read transaction keeps aggregates and loaded rows consistent.
             rows = int(connection.scalar(select(func.count()).select_from(relation)) or 0)
             if rows > max_rows:

@@ -134,6 +134,13 @@ def applicable(df: pd.DataFrame, rule: Rule) -> pd.Series:
 def violation_mask(df: pd.DataFrame, rule: Rule) -> tuple[pd.Series, str]:
     eligible = applicable(df, rule)
     series = df[rule.fields()[0]]
+    raw_values = df.attrs.get("raw_numeric", {}).get(rule.fields()[0])
+    text_rule = rule.type in {"regex", "string_length", "date_validity"}
+    string_enum = rule.type == "allowed_values" and all(
+        isinstance(v, str) for v in (rule.values or [])
+    )
+    if raw_values is not None and (text_rule or string_enum):
+        series = pd.Series(raw_values, index=df.index)
     if rule.type == "required":
         mask = series.isna() | series.map(lambda v: isinstance(v, str) and not v.strip())
         expected = "a non-null, nonblank value"

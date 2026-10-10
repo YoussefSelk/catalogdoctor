@@ -64,6 +64,37 @@ def test_missing_sqlite_does_not_create_file(tmp_path):
     assert not path.exists()
 
 
+def test_sqlite_aggregates_and_rows_share_snapshot(tmp_path):
+    from sqlalchemy import event
+
+    from catalogdoctor.ingestion import sqlite_engine
+
+    path = tmp_path / "snapshot.db"
+    writer = create_engine(f"sqlite:///{path}")
+    with writer.connect() as connection:
+        connection.exec_driver_sql("PRAGMA journal_mode=WAL")
+    pd.DataFrame({"a": [1, 2]}).to_sql("products", writer, index=False)
+    reader = sqlite_engine(path)
+    inserted = False
+
+    def insert_after_count(connection, cursor, statement, parameters, context, many):
+        nonlocal inserted
+        if "SELECT count(*)" in statement and not inserted:
+            inserted = True
+            with writer.begin() as write:
+                write.exec_driver_sql("INSERT INTO products (a) VALUES (3)")
+
+    event.listen(reader, "after_cursor_execute", insert_after_count)
+    try:
+        df, stats = load_sqlite(path, "products", shared_engine=reader)
+        assert inserted
+        assert len(df) == stats["rows"] == 2
+        assert stats["null_counts"]["a"] == 0
+    finally:
+        reader.dispose()
+        writer.dispose()
+
+
 def test_nested_parquet_has_a_helpful_error(tmp_path):
     path = tmp_path / "nested.parquet"
     pd.DataFrame({"x": [[1, 2], [3]]}).to_parquet(path)

@@ -1,6 +1,7 @@
 """Evidence-preserving dataset and column summaries."""
 
 from collections import Counter
+from functools import partial
 from typing import Any
 
 import pandas as pd
@@ -58,7 +59,7 @@ def profile(
         elif kind == "date":
             dates = series
             if date_formats and name in date_formats:
-                dates = series.map(lambda v, fmt=date_formats[name]: parse_date(v, fmt))
+                dates = series.map(partial(parse_date, format=date_formats[name]))
             valid_dates = dates.dropna()
             column["invalid_date_count"] = int((dates.isna() & series.notna()).sum())
             if len(valid_dates):
