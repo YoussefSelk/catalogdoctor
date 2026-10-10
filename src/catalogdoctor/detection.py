@@ -58,7 +58,7 @@ def statistical(
             "threshold": threshold,
         }
         mask = (values < lower) | (values > upper)
-        for position in np.flatnonzero(mask.to_numpy()):
+        for position in np.flatnonzero(mask.fillna(False).to_numpy(dtype=bool)):
             value = values.iloc[position]
             issues.append(
                 issue(

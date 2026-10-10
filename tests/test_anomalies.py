@@ -24,6 +24,13 @@ def test_small_and_invalid_detection():
         isolation_forest(pd.DataFrame({"x": [1]}), contamination=0.8)
 
 
+def test_nullable_numeric_outliers_preserve_missing_evidence():
+    df = pd.DataFrame({"x": pd.Series([1, 2, 3, 4, 100, None], dtype="Int64")})
+    result = statistical(df, ["x"])
+    assert [i.row_ref for i in result["issues"]] == [4]
+    assert pd.isna(df.iloc[5]["x"])
+
+
 def test_isolation_reproducible_imputed_and_excludes_identifiers():
     rng = np.random.default_rng(42)
     df = pd.DataFrame(

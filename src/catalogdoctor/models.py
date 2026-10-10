@@ -48,6 +48,13 @@ def issue(df: pd.DataFrame, position: int, fields: list[str], **kwargs: Any) -> 
         fields=fields,
         row_ref=position,
         source_index=scalar(df.index[position]),
-        actual=scalar({field: df.iloc[position][field] for field in fields}),
+        actual=scalar(
+            {
+                field: df.attrs["raw_numeric"][field][position]
+                if field in df.attrs.get("raw_numeric", {})
+                else df.iloc[position][field]
+                for field in fields
+            }
+        ),
         **kwargs,
     )

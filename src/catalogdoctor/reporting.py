@@ -1,6 +1,7 @@
 """One reusable analysis pipeline and honest, escaped report exports."""
 
 import csv
+import hashlib
 import html
 import json
 from collections import Counter
@@ -19,6 +20,19 @@ from catalogdoctor.detection import (
 from catalogdoctor.models import Issue, scalar
 from catalogdoctor.profiling import profile
 from catalogdoctor.quality import evaluate_rules, load_rules, quality_score
+
+
+def dataset_identity(df: pd.DataFrame) -> str:
+    schema = json.dumps(
+        {
+            "columns": list(df.columns),
+            "dtypes": list(map(str, df.dtypes)),
+            "raw_numeric": scalar(df.attrs.get("raw_numeric", {})),
+        },
+        sort_keys=True,
+    )
+    values = pd.util.hash_pandas_object(df, index=True).to_numpy().tobytes()
+    return hashlib.sha256(schema.encode("utf-8") + values).hexdigest()
 
 
 def serializable(value: Any) -> Any:

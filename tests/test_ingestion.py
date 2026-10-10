@@ -62,3 +62,24 @@ def test_missing_sqlite_does_not_create_file(tmp_path):
     with pytest.raises(ValueError, match="does not exist"):
         sqlite_tables(path)
     assert not path.exists()
+
+
+def test_nested_parquet_has_a_helpful_error(tmp_path):
+    path = tmp_path / "nested.parquet"
+    pd.DataFrame({"x": [[1, 2], [3]]}).to_parquet(path)
+    with pytest.raises(ValueError, match="scalar"):
+        load_file(path)
+
+
+def test_csv_preserves_identifiers_and_literal_na():
+    df = load_file(BytesIO(b"sku,category,price\n001,NA,1.20\n002,Other,2.50\n"), "x.csv")
+    assert df["sku"].tolist() == ["001", "002"]
+    assert df["category"].tolist() == ["NA", "Other"]
+    assert df["price"].tolist() == [1.2, 2.5]
+    assert df.attrs["raw_numeric"]["price"] == ["1.20", "2.50"]
+
+
+def test_parquet_retains_explicit_index(tmp_path):
+    path = tmp_path / "indexed.parquet"
+    pd.DataFrame({"x": [1, 2]}, index=["row-a", "row-b"]).to_parquet(path)
+    assert load_file(path).index.tolist() == ["row-a", "row-b"]

@@ -4,7 +4,7 @@ import pandas as pd
 
 from catalogdoctor.demo import generate_catalog, write_examples
 from catalogdoctor.ingestion import load_sqlite
-from catalogdoctor.reporting import analyze, export_csv, export_html, export_json
+from catalogdoctor.reporting import analyze, dataset_identity, export_csv, export_html, export_json
 
 
 def test_demo_reproducible_and_sql_roundtrip(tmp_path):
@@ -36,3 +36,9 @@ def test_exports_serialize_escape_and_report_real_results():
     assert "&lt;script&gt;" in html
     assert "Quality score" in html
     assert export_csv(analyze(pd.DataFrame(), "rules: []")).startswith("rule_id,")
+
+
+def test_export_identity_includes_schema():
+    df = pd.DataFrame({"price": [1, 2]})
+    assert dataset_identity(df) != dataset_identity(df.rename(columns={"price": "weight"}))
+    assert dataset_identity(df) != dataset_identity(df.astype(float))

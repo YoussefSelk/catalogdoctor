@@ -1,9 +1,12 @@
 """Bounded file ingestion and reflected, read-only SQLite queries."""
 
+import json
+import re
 from io import BytesIO
 from pathlib import Path
 from typing import Any, BinaryIO
 
+import numpy as np
 import pandas as pd
 import pyarrow.parquet as pq
 from sqlalchemy import MetaData, Table, create_engine, func, inspect, select
@@ -17,10 +20,16 @@ MAX_MEMORY = 256 * 1024 * 1024
 def check_frame(df: pd.DataFrame, max_rows: int, max_memory: int) -> pd.DataFrame:
     if len(df) > max_rows:
         raise ValueError(f"Dataset exceeds row limit ({max_rows:,}).")
-    if int(df.memory_usage(deep=True).sum()) > max_memory:
+    raw_memory = int(pd.DataFrame(df.attrs.get("raw_numeric", {})).memory_usage(deep=True).sum())
+    if int(df.memory_usage(deep=True).sum()) + raw_memory > max_memory:
         raise ValueError("Dataset exceeds memory limit.")
     if not df.columns.is_unique or not all(isinstance(c, str) for c in df.columns):
         raise ValueError("Column names must be unique strings.")
+    for column in df.select_dtypes(include=["object"]).columns:
+        if df[column].map(lambda v: isinstance(v, (list, dict, tuple, np.ndarray))).any():
+            raise ValueError(
+                "Only flat scalar cell values are supported; flatten nested columns first."
+            )
     return df
 
 
@@ -53,7 +62,36 @@ def load_file(
         if suffix == ".csv":
             if len(separator) != 1:
                 raise ValueError("CSV separator must be one character.")
-            df = pd.read_csv(BytesIO(data), encoding=encoding, sep=separator, nrows=max_rows + 1)
+            df = pd.read_csv(
+                BytesIO(data),
+                encoding=encoding,
+                sep=separator,
+                nrows=max_rows + 1,
+                dtype=str,
+                keep_default_na=False,
+                na_values=[""],
+            )
+            # Preserve literal NA/null tokens and padded identifiers. Keep numeric
+            # lexemes for issue evidence after conservative numeric type inference.
+            raw_numeric: dict[str, list[Any]] = {}
+            canonical = re.compile(r"[+-]?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?")
+            for column in df:
+                observed = df[column].dropna()
+                if (
+                    len(observed)
+                    and observed.map(lambda v: canonical.fullmatch(v) is not None).all()
+                ):
+                    converted = pd.to_numeric(df[column], errors="coerce")
+                    if (
+                        converted.notna().sum() == len(observed)
+                        and np.isfinite(converted.dropna()).all()
+                    ):
+                        integer_text = observed.map(lambda v: "." not in v and "e" not in v.lower())
+                        if integer_text.all() and observed.map(lambda v: abs(int(v)) > 2**53).any():
+                            continue
+                        raw_numeric[str(column)] = df[column].tolist()
+                        df[column] = converted
+            df.attrs["raw_numeric"] = raw_numeric
         else:
             parquet = pq.ParquetFile(BytesIO(data))
             if parquet.metadata.num_rows > max_rows:
@@ -67,7 +105,10 @@ def load_file(
                 if memory > max_memory:
                     raise ValueError("Dataset exceeds memory limit.")
                 frames.append(frame)
-            df = pd.concat(frames, ignore_index=True) if frames else parquet.read().to_pandas()
+            df = pd.concat(frames) if frames else parquet.read().to_pandas()
+            metadata = json.loads((parquet.schema_arrow.metadata or {}).get(b"pandas", b"{}"))
+            if not any(isinstance(c, str) for c in metadata.get("index_columns", [])):
+                df = df.reset_index(drop=True)
     except (pd.errors.ParserError, pd.errors.EmptyDataError, UnicodeError, OSError) as exc:
         raise ValueError(f"File is empty or invalid: {exc}") from exc
     except Exception as exc:

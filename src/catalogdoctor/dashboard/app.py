@@ -1,6 +1,5 @@
 """CatalogDoctor dashboard. Launch with `catalogdoctor dashboard`."""
 
-import hashlib
 import os
 from copy import deepcopy
 from io import BytesIO
@@ -19,7 +18,14 @@ from catalogdoctor.detection import (
     statistical,
 )
 from catalogdoctor.ingestion import load_file, load_sqlite, sqlite_tables
-from catalogdoctor.reporting import analyze, export_csv, export_html, export_json, serializable
+from catalogdoctor.reporting import (
+    analyze,
+    dataset_identity,
+    export_csv,
+    export_html,
+    export_json,
+    serializable,
+)
 
 PAGES = [
     "Overview",
@@ -357,9 +363,7 @@ def main() -> None:
         st.sidebar.caption("Edit trusted rule configuration. Rules never modify the dataset.")
         with st.spinner("Analyzing observed data…"):
             report = cached_analysis(df, rules_yaml)
-        identity = hashlib.sha256(
-            pd.util.hash_pandas_object(df, index=True).to_numpy().tobytes()
-        ).hexdigest()
+        identity = dataset_identity(df)
         if page == "Overview":
             overview(report, df, sql)
         elif page == "Data Profiling":
