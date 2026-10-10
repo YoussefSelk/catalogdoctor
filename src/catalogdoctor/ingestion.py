@@ -25,7 +25,7 @@ def check_frame(df: pd.DataFrame, max_rows: int, max_memory: int) -> pd.DataFram
         raise ValueError("Dataset exceeds memory limit.")
     if not df.columns.is_unique or not all(isinstance(c, str) for c in df.columns):
         raise ValueError("Column names must be unique strings.")
-    for column in df.select_dtypes(include=["object"]).columns:
+    for column in [c for c in df if pd.api.types.is_object_dtype(df[c])]:
         if df[column].map(lambda v: isinstance(v, (list, dict, tuple, np.ndarray))).any():
             raise ValueError(
                 "Only flat scalar cell values are supported; flatten nested columns first."

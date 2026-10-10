@@ -37,12 +37,12 @@ PAGES = [
 ]
 
 
-@st.cache_data(show_spinner=False, max_entries=4)
+@st.cache_data(show_spinner=False, max_entries=4, hash_funcs={pd.DataFrame: dataset_identity})
 def cached_analysis(df: pd.DataFrame, yaml_text: str) -> dict[str, Any]:
     return analyze(df, yaml_text)
 
 
-@st.cache_data(show_spinner=False, max_entries=8)
+@st.cache_data(show_spinner=False, max_entries=8, hash_funcs={pd.DataFrame: dataset_identity})
 def cached_numeric(
     df: pd.DataFrame, features: list[str], method: str, threshold: float, contamination: float
 ) -> dict[str, Any]:
@@ -54,7 +54,7 @@ def cached_numeric(
     )
 
 
-@st.cache_data(show_spinner=False, max_entries=4)
+@st.cache_data(show_spinner=False, max_entries=4, hash_funcs={pd.DataFrame: dataset_identity})
 def cached_classification(
     df: pd.DataFrame, text: list[str], target: str, confidence: float
 ) -> dict[str, Any]:
@@ -356,7 +356,7 @@ def main() -> None:
             st.warning("Large dataset: model fitting and profiling may take longer.")
         rules_yaml = st.sidebar.text_area(
             "Quality rules · YAML",
-            value=default_rules() if source != "Upload file" else "rules: []",
+            value=default_rules() if source == "Built-in demo" else "rules: []",
             height=170,
             key=f"rules_{source}",
         )
