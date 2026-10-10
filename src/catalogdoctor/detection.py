@@ -46,10 +46,10 @@ def statistical(
             boundaries[column] = {"status": "constant" if len(finite) >= 4 else "insufficient data"}
             continue
         if method == "iqr":
-            q1, q3 = finite.quantile(0.25), finite.quantile(0.75)
+            q1, q3 = float(finite.quantile(0.25)), float(finite.quantile(0.75))
             lower, upper = q1 - threshold * (q3 - q1), q3 + threshold * (q3 - q1)
         else:
-            mean, std = finite.mean(), finite.std(ddof=0)
+            mean, std = float(finite.mean()), float(finite.std(ddof=0))
             lower, upper = mean - threshold * std, mean + threshold * std
         boundaries[column] = {
             "status": "ok",
@@ -169,7 +169,12 @@ def classification_review(
         raise ValueError("Confidence must be between 0.5 and 1")
     if not text_columns or target in text_columns or set(text_columns + [target]) - set(df.columns):
         raise ValueError("Choose existing text fields distinct from the target")
-    unavailable = {"status": "unavailable", "issues": [], "metrics": None, "predictions": []}
+    unavailable: dict[str, Any] = {
+        "status": "unavailable",
+        "issues": [],
+        "metrics": None,
+        "predictions": [],
+    }
     texts = df[text_columns].fillna("").astype(str).agg(" ".join, axis=1).str.strip()
     labels = df[target].fillna("").astype(str)
     valid = texts.ne("") & labels.str.strip().ne("")

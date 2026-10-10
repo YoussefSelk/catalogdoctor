@@ -250,7 +250,7 @@ def quality_score(df: pd.DataFrame, config: RuleConfig, issues: list[Issue]) -> 
         "uniqueness": len(duplicate_positions),
         **{key: len(value) for key, value in failures.items()},
     }
-    components = {
+    components: dict[str, Any] = {
         name: {
             "score": 100 * (1 - failed[name] / total) if total else None,
             "failed": failed[name],
