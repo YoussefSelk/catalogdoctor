@@ -9,6 +9,7 @@ build/
 dist/
 .superpowers/
 .env
+.streamlit/secrets.toml
 *.log
 test-results.xml
 playwright-output/

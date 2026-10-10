@@ -46,3 +46,28 @@ remote CI where available.
 ## Progress
 - Repository initialized on main; empty workspace, no unrelated work found.
 - GitHub CLI authenticated; Docker daemon available.
+- Completed ingestion, profiling, validated rules/scoring, statistical and ML
+  review, demo generation, exports, six dashboard pages, CLI, Docker and CI.
+- Independent review identified nullable boolean masks, evidence-losing CSV
+  inference, unsupported nested Parquet, schema-blind cache keys, sqlite3 legacy
+  transaction behavior, and text validation against inferred numeric values.
+  Each was reproduced and fixed with regression tests.
+- Final local checks: 49 pytest tests pass with warnings as errors; Ruff lint and
+  formatting pass; mypy passes on all 11 maintained source files.
+- Final wheel built and installed into an independent environment; demo, CSV,
+  Parquet and real SQLite scans all produced valid JSON reports.
+- Docker built with locked dependencies, runs as UID 10001, is HTTP-healthy,
+  and renders the real demo through Streamlit AppTest inside the container.
+- Five real browser screenshots captured against the running application.
+
+## Implementation rulings
+- Inline execution in the initially empty main checkout follows the user's
+  explicit initialization and default-branch instructions; no separate worktree
+  or per-task agent cycle is needed. One read-only reviewer checked the whole core.
+- Scoring required/unique failures belongs to completeness/uniqueness; repeated
+  nonstructural checks share row/field denominators. Heuristics never enter scores.
+- SQLite transactions explicitly issue BEGIN: SQLAlchemy's transaction context
+  alone is insufficient for sqlite3 legacy SELECT behavior on Python 3.11.
+- CSV inference retains numeric lexemes, preserves literal null-like strings and
+  leading-zero values, and validates string-format rules against original evidence.
+- Runtime locks support platform/Python markers; CI checks 3.11 and 3.13.
