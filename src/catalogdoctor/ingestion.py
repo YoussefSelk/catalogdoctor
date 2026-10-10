@@ -11,6 +11,7 @@ import pandas as pd
 import pyarrow.parquet as pq
 from sqlalchemy import MetaData, Table, create_engine, func, inspect, select
 from sqlalchemy.engine import Engine
+from sqlalchemy.exc import SQLAlchemyError
 
 MAX_BYTES = 50 * 1024 * 1024
 MAX_ROWS = 100_000
@@ -126,12 +127,15 @@ def sqlite_engine(path: str | Path) -> Engine:
     return create_engine(f"sqlite:///file:{file.as_posix()}?mode=ro&uri=true")
 
 
-def sqlite_tables(path: str | Path) -> list[str]:
-    engine = sqlite_engine(path)
+def sqlite_tables(path: str | Path, *, shared_engine: Engine | None = None) -> list[str]:
+    engine = shared_engine if shared_engine is not None else sqlite_engine(path)
     try:
         return inspect(engine).get_table_names()
+    except SQLAlchemyError as exc:
+        raise ValueError("Unable to inspect SQLite database; check the file format.") from exc
     finally:
-        engine.dispose()
+        if shared_engine is None:
+            engine.dispose()
 
 
 def load_sqlite(
@@ -140,8 +144,9 @@ def load_sqlite(
     *,
     max_rows: int = MAX_ROWS,
     max_memory: int = MAX_MEMORY,
+    shared_engine: Engine | None = None,
 ) -> tuple[pd.DataFrame, dict[str, Any]]:
-    engine = sqlite_engine(path)
+    engine = shared_engine if shared_engine is not None else sqlite_engine(path)
     try:
         if table not in inspect(engine).get_table_names():
             raise ValueError("Unknown table; select an inspected table name.")
@@ -173,5 +178,10 @@ def load_sqlite(
                 else pd.DataFrame(columns=relation.c.keys())
             )
         return check_frame(df, max_rows, max_memory), {"rows": rows, "null_counts": nulls}
+    except SQLAlchemyError as exc:
+        raise ValueError(
+            "Unable to read SQLite table; check the database and table format."
+        ) from exc
     finally:
-        engine.dispose()
+        if shared_engine is None:
+            engine.dispose()

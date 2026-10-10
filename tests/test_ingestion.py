@@ -83,3 +83,10 @@ def test_parquet_retains_explicit_index(tmp_path):
     path = tmp_path / "indexed.parquet"
     pd.DataFrame({"x": [1, 2]}, index=["row-a", "row-b"]).to_parquet(path)
     assert load_file(path).index.tolist() == ["row-a", "row-b"]
+
+
+def test_invalid_sqlite_is_reported_as_input_error(tmp_path):
+    path = tmp_path / "bad.db"
+    path.write_text("this is not SQLite")
+    with pytest.raises(ValueError, match="SQLite"):
+        sqlite_tables(path)

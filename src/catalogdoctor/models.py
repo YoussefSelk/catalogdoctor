@@ -11,6 +11,14 @@ from pydantic import BaseModel, ConfigDict
 Severity = Literal["critical", "high", "medium", "low"]
 
 
+def parse_date(value: Any, format: str) -> datetime | None:
+    try:
+        parsed = datetime.strptime(str(value), format)
+        return parsed if parsed.strftime(format) == str(value) else None
+    except (ValueError, TypeError):
+        return None
+
+
 def scalar(value: Any) -> Any:
     """Convert data scalars without leaking NaN/Infinity into JSON."""
     if isinstance(value, dict):

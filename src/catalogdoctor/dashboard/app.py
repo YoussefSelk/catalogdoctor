@@ -9,6 +9,7 @@ from typing import Any
 import pandas as pd
 import plotly.express as px
 import streamlit as st
+from sqlalchemy.engine import Engine
 
 from catalogdoctor.demo import default_rules, generate_catalog
 from catalogdoctor.detection import (
@@ -17,7 +18,7 @@ from catalogdoctor.detection import (
     numeric_features,
     statistical,
 )
-from catalogdoctor.ingestion import load_file, load_sqlite, sqlite_tables
+from catalogdoctor.ingestion import load_file, load_sqlite, sqlite_engine, sqlite_tables
 from catalogdoctor.reporting import (
     analyze,
     dataset_identity,
@@ -35,6 +36,12 @@ PAGES = [
     "Classification Review",
     "Reports & Export",
 ]
+
+
+@st.cache_resource(show_spinner=False)
+def cached_sqlite_engine(path: str, modified_ns: int, size: int) -> Engine:
+    """Reuse the read-only connection pool; never cache live database results."""
+    return sqlite_engine(path)
 
 
 @st.cache_data(show_spinner=False, max_entries=4, hash_funcs={pd.DataFrame: dataset_identity})
@@ -105,11 +112,13 @@ def get_dataset(source: str) -> tuple[pd.DataFrame | None, dict[str, Any] | None
             "Configure CATALOGDOCTOR_SQLITE with an existing SQLite database, or generate examples."
         )
         return None, None
-    table = st.sidebar.selectbox("SQLite table", sqlite_tables(path))
+    metadata = Path(path).stat()
+    engine = cached_sqlite_engine(path, metadata.st_mtime_ns, metadata.st_size)
+    table = st.sidebar.selectbox("SQLite table", sqlite_tables(path, shared_engine=engine))
     if not table:
         st.info("This database has no tables.")
         return None, None
-    return load_sqlite(path, table)
+    return load_sqlite(path, table, shared_engine=engine)
 
 
 def overview(report: dict[str, Any], df: pd.DataFrame, sql: dict[str, Any] | None) -> None:

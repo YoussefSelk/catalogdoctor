@@ -25,3 +25,15 @@ def test_invalid_rules_have_helpful_error():
     app.sidebar.text_area[0].set_value("rules: [{column: absent, type: required}]").run()
     assert not app.exception
     assert any("missing columns" in item.value for item in app.error)
+
+
+def test_sqlite_dashboard_reads_real_aggregates(tmp_path, monkeypatch):
+    from catalogdoctor.demo import write_examples
+
+    write_examples(tmp_path)
+    monkeypatch.setenv("CATALOGDOCTOR_SQLITE", str(tmp_path / "catalog.db"))
+    app = AppTest.from_file(str(APP), default_timeout=45).run()
+    app.sidebar.selectbox[0].set_value("SQLite table").run()
+    assert not app.exception
+    assert app.metric[1].value == "1,500"
+    assert app.json

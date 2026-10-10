@@ -66,7 +66,12 @@ def analyze(df: pd.DataFrame, rules_yaml: str) -> dict[str, Any]:
     return serializable(
         {
             "generated_at": datetime.now(UTC).isoformat(),
-            "profile": profile(df),
+            "profile": profile(
+                df,
+                date_formats={
+                    str(r.column): str(r.format) for r in config.rules if r.type == "date_validity"
+                },
+            ),
             "score": quality_score(df, config, deterministic),
             "rules": config.model_dump(),
             "issues": all_issues,

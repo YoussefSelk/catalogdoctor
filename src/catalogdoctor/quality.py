@@ -2,7 +2,6 @@
 
 import operator
 import re
-from datetime import datetime
 from typing import Any, Literal
 
 import numpy as np
@@ -10,7 +9,7 @@ import pandas as pd
 import yaml
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
-from catalogdoctor.models import Issue, Severity, issue
+from catalogdoctor.models import Issue, Severity, issue, parse_date
 
 RuleType = Literal[
     "required",
@@ -169,11 +168,7 @@ def violation_mask(df: pd.DataFrame, rule: Rule) -> tuple[pd.Series, str]:
     elif rule.type == "date_validity":
 
         def invalid_date(value: Any) -> bool:
-            try:
-                parsed = datetime.strptime(str(value), str(rule.format))
-                return parsed.strftime(str(rule.format)) != str(value)
-            except (ValueError, TypeError):
-                return True
+            return parse_date(value, str(rule.format)) is None
 
         mask = series.map(invalid_date)
         expected = f"a valid date in exact format {rule.format}"

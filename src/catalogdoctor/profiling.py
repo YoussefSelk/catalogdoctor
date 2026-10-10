@@ -6,10 +6,12 @@ from typing import Any
 import pandas as pd
 from pandas.api.types import is_bool_dtype, is_datetime64_any_dtype, is_numeric_dtype
 
-from catalogdoctor.models import scalar
+from catalogdoctor.models import parse_date, scalar
 
 
-def profile(df: pd.DataFrame, rare_fraction: float = 0.01) -> dict[str, Any]:
+def profile(
+    df: pd.DataFrame, rare_fraction: float = 0.01, date_formats: dict[str, str] | None = None
+) -> dict[str, Any]:
     rows, cols = df.shape
     missing = int(df.isna().sum().sum())
     duplicate_rows = int(df.duplicated().sum())
@@ -18,7 +20,7 @@ def profile(df: pd.DataFrame, rare_fraction: float = 0.01) -> dict[str, Any]:
         series = df[name]
         nonnull = series.dropna()
         kind = "categorical"
-        if is_datetime64_any_dtype(series):
+        if is_datetime64_any_dtype(series) or name in (date_formats or {}):
             kind = "date"
         elif is_numeric_dtype(series) and not is_bool_dtype(series):
             kind = "numeric"
@@ -53,8 +55,14 @@ def profile(df: pd.DataFrame, rare_fraction: float = 0.01) -> dict[str, Any]:
                     q3=q3,
                     iqr=q3 - q1,
                 )
-        elif kind == "date" and len(nonnull):
-            column.update(min=nonnull.min(), max=nonnull.max())
+        elif kind == "date":
+            dates = series
+            if date_formats and name in date_formats:
+                dates = series.map(lambda v, fmt=date_formats[name]: parse_date(v, fmt))
+            valid_dates = dates.dropna()
+            column["invalid_date_count"] = int((dates.isna() & series.notna()).sum())
+            if len(valid_dates):
+                column.update(min=valid_dates.min(), max=valid_dates.max())
         else:
             column["cardinality"] = int(series.nunique())
             column["rare_categories"] = [
