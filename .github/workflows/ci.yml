@@ -12,6 +12,8 @@ jobs:
     strategy:
       matrix:
         python: ['3.11', '3.13']
+    env:
+      UV_PYTHON: ${{ matrix.python }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -22,7 +24,7 @@ jobs:
       - run: uv sync --locked --extra dev --python ${{ matrix.python }}
       - run: uv run --no-sync ruff check .
       - run: uv run --no-sync ruff format --check .
-      - run: uv run --no-sync mypy
+      - run: uv run --no-sync mypy --python-version ${{ matrix.python }}
       - run: uv run --no-sync pytest --junitxml=test-results.xml -W error
       - name: Verify deterministic example generation
         run: |
