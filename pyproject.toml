@@ -1,0 +1,47 @@
+[build-system]
+requires = ["hatchling>=1.26"]
+build-backend = "hatchling.build"
+
+[project]
+name = "catalogdoctor"
+version = "0.1.0"
+description = "Explainable data-quality analysis for tabular datasets"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+dependencies = [
+  "pandas>=2.2,<4", "numpy>=1.26,<3", "SQLAlchemy>=2.0,<3",
+  "scikit-learn>=1.5,<2", "streamlit>=1.42,<2", "plotly>=5.24,<7",
+  "pydantic>=2.10,<3", "PyYAML>=6,<7", "pyarrow>=18,<25",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10", "ruff>=0.11,<1", "mypy>=1.15,<2", "pandas-stubs", "types-PyYAML", "build"]
+
+[project.scripts]
+catalogdoctor = "catalogdoctor.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/catalogdoctor"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.mypy]
+python_version = "3.11"
+files = ["src/catalogdoctor"]
+check_untyped_defs = true
+disallow_untyped_defs = true
+warn_unused_ignores = true
+
+[[tool.mypy.overrides]]
+module = ["sklearn.*", "plotly.*"]
+ignore_missing_imports = true
