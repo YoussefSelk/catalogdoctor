@@ -1,0 +1,17 @@
+rules:
+  - {id: product-required, column: product_id, type: required, severity: critical}
+  - {id: product-unique, column: product_id, type: unique, severity: critical}
+  - {id: sku-required, column: sku, type: required, severity: high}
+  - {id: sku-unique, column: sku, type: unique, severity: high}
+  - {id: sku-format, column: sku, type: regex, pattern: '^[A-Z]{3}-[0-9]{4}$', severity: high}
+  - {id: name-required, column: name, type: required, severity: high}
+  - {id: price-required, column: price, type: required, severity: high}
+  - {id: price-min, column: price, type: min_value, value: 0, severity: high}
+  - {id: stock-min, column: stock, type: min_value, value: 0, severity: high}
+  - id: category-allowed
+    column: category
+    type: allowed_values
+    values: [Electronics, Clothing, Home, Kitchen, Sports]
+    severity: medium
+  - {id: created-valid, column: created_at, type: date_validity, format: '%Y-%m-%d', severity: medium}
+weights: {completeness: 0.35, uniqueness: 0.25, validity: 0.25, consistency: 0.15}

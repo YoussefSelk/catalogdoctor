@@ -1,0 +1,951 @@
+{
+  "seed": 42,
+  "row_reference": "zero-based original position",
+  "issues": [
+    {
+      "row_ref": 10,
+      "field": "name",
+      "original": "Portable USB Speaker \u2014 Edition 45",
+      "injected": null,
+      "kind": "missing_name"
+    },
+    {
+      "row_ref": 11,
+      "field": "name",
+      "original": "Lightweight Running Jacket \u2014 Edition 7",
+      "injected": null,
+      "kind": "missing_name"
+    },
+    {
+      "row_ref": 12,
+      "field": "name",
+      "original": "Wooden Storage Shelf \u2014 Edition 3",
+      "injected": null,
+      "kind": "missing_name"
+    },
+    {
+      "row_ref": 13,
+      "field": "name",
+      "original": "Stainless Steel Saucepan \u2014 Edition 65",
+      "injected": null,
+      "kind": "missing_name"
+    },
+    {
+      "row_ref": 14,
+      "field": "name",
+      "original": "Adjustable Dumbbell Set \u2014 Edition 62",
+      "injected": null,
+      "kind": "missing_name"
+    },
+    {
+      "row_ref": 15,
+      "field": "name",
+      "original": "Wireless Bluetooth Headphones \u2014 Edition 9",
+      "injected": null,
+      "kind": "missing_name"
+    },
+    {
+      "row_ref": 16,
+      "field": "name",
+      "original": "Lightweight Running Jacket \u2014 Edition 13",
+      "injected": null,
+      "kind": "missing_name"
+    },
+    {
+      "row_ref": 17,
+      "field": "name",
+      "original": "Wooden Storage Shelf \u2014 Edition 48",
+      "injected": null,
+      "kind": "missing_name"
+    },
+    {
+      "row_ref": 18,
+      "field": "name",
+      "original": "Silicone Baking Utensils \u2014 Edition 77",
+      "injected": null,
+      "kind": "missing_name"
+    },
+    {
+      "row_ref": 19,
+      "field": "name",
+      "original": "Yoga Exercise Mat \u2014 Edition 36",
+      "injected": null,
+      "kind": "missing_name"
+    },
+    {
+      "row_ref": 20,
+      "field": "name",
+      "original": "Portable USB Speaker \u2014 Edition 14",
+      "injected": null,
+      "kind": "missing_name"
+    },
+    {
+      "row_ref": 21,
+      "field": "name",
+      "original": "Lightweight Running Jacket \u2014 Edition 12",
+      "injected": null,
+      "kind": "missing_name"
+    },
+    {
+      "row_ref": 22,
+      "field": "name",
+      "original": "Linen Cushion Cover \u2014 Edition 40",
+      "injected": null,
+      "kind": "missing_name"
+    },
+    {
+      "row_ref": 23,
+      "field": "name",
+      "original": "Stainless Steel Saucepan \u2014 Edition 24",
+      "injected": null,
+      "kind": "missing_name"
+    },
+    {
+      "row_ref": 24,
+      "field": "name",
+      "original": "Yoga Exercise Mat \u2014 Edition 76",
+      "injected": null,
+      "kind": "missing_name"
+    },
+    {
+      "row_ref": 35,
+      "field": "price",
+      "original": 26.94,
+      "injected": null,
+      "kind": "missing_price"
+    },
+    {
+      "row_ref": 36,
+      "field": "price",
+      "original": 13.57,
+      "injected": null,
+      "kind": "missing_price"
+    },
+    {
+      "row_ref": 37,
+      "field": "price",
+      "original": 30.57,
+      "injected": null,
+      "kind": "missing_price"
+    },
+    {
+      "row_ref": 38,
+      "field": "price",
+      "original": 27.1,
+      "injected": null,
+      "kind": "missing_price"
+    },
+    {
+      "row_ref": 39,
+      "field": "price",
+      "original": 14.81,
+      "injected": null,
+      "kind": "missing_price"
+    },
+    {
+      "row_ref": 40,
+      "field": "price",
+      "original": 24.86,
+      "injected": null,
+      "kind": "missing_price"
+    },
+    {
+      "row_ref": 41,
+      "field": "price",
+      "original": 18.65,
+      "injected": null,
+      "kind": "missing_price"
+    },
+    {
+      "row_ref": 42,
+      "field": "price",
+      "original": 126.11,
+      "injected": null,
+      "kind": "missing_price"
+    },
+    {
+      "row_ref": 43,
+      "field": "price",
+      "original": 9.56,
+      "injected": null,
+      "kind": "missing_price"
+    },
+    {
+      "row_ref": 44,
+      "field": "price",
+      "original": 198.01,
+      "injected": null,
+      "kind": "missing_price"
+    },
+    {
+      "row_ref": 45,
+      "field": "price",
+      "original": 15.78,
+      "injected": null,
+      "kind": "missing_price"
+    },
+    {
+      "row_ref": 46,
+      "field": "price",
+      "original": 12.26,
+      "injected": null,
+      "kind": "missing_price"
+    },
+    {
+      "row_ref": 60,
+      "field": "product_id",
+      "original": 61,
+      "injected": 41,
+      "kind": "duplicate_id"
+    },
+    {
+      "row_ref": 60,
+      "field": "sku",
+      "original": "PRD-0061",
+      "injected": "PRD-0041",
+      "kind": "duplicate_sku"
+    },
+    {
+      "row_ref": 61,
+      "field": "product_id",
+      "original": 62,
+      "injected": 42,
+      "kind": "duplicate_id"
+    },
+    {
+      "row_ref": 61,
+      "field": "sku",
+      "original": "PRD-0062",
+      "injected": "PRD-0042",
+      "kind": "duplicate_sku"
+    },
+    {
+      "row_ref": 62,
+      "field": "product_id",
+      "original": 63,
+      "injected": 43,
+      "kind": "duplicate_id"
+    },
+    {
+      "row_ref": 62,
+      "field": "sku",
+      "original": "PRD-0063",
+      "injected": "PRD-0043",
+      "kind": "duplicate_sku"
+    },
+    {
+      "row_ref": 63,
+      "field": "product_id",
+      "original": 64,
+      "injected": 44,
+      "kind": "duplicate_id"
+    },
+    {
+      "row_ref": 63,
+      "field": "sku",
+      "original": "PRD-0064",
+      "injected": "PRD-0044",
+      "kind": "duplicate_sku"
+    },
+    {
+      "row_ref": 64,
+      "field": "product_id",
+      "original": 65,
+      "injected": 45,
+      "kind": "duplicate_id"
+    },
+    {
+      "row_ref": 64,
+      "field": "sku",
+      "original": "PRD-0065",
+      "injected": "PRD-0045",
+      "kind": "duplicate_sku"
+    },
+    {
+      "row_ref": 65,
+      "field": "product_id",
+      "original": 66,
+      "injected": 46,
+      "kind": "duplicate_id"
+    },
+    {
+      "row_ref": 65,
+      "field": "sku",
+      "original": "PRD-0066",
+      "injected": "PRD-0046",
+      "kind": "duplicate_sku"
+    },
+    {
+      "row_ref": 66,
+      "field": "product_id",
+      "original": 67,
+      "injected": 47,
+      "kind": "duplicate_id"
+    },
+    {
+      "row_ref": 66,
+      "field": "sku",
+      "original": "PRD-0067",
+      "injected": "PRD-0047",
+      "kind": "duplicate_sku"
+    },
+    {
+      "row_ref": 67,
+      "field": "product_id",
+      "original": 68,
+      "injected": 48,
+      "kind": "duplicate_id"
+    },
+    {
+      "row_ref": 67,
+      "field": "sku",
+      "original": "PRD-0068",
+      "injected": "PRD-0048",
+      "kind": "duplicate_sku"
+    },
+    {
+      "row_ref": 80,
+      "field": "price",
+      "original": 33.25,
+      "injected": -30.22,
+      "kind": "invalid_price"
+    },
+    {
+      "row_ref": 81,
+      "field": "price",
+      "original": 36.75,
+      "injected": -50.61,
+      "kind": "invalid_price"
+    },
+    {
+      "row_ref": 82,
+      "field": "price",
+      "original": 24.76,
+      "injected": -33.64,
+      "kind": "invalid_price"
+    },
+    {
+      "row_ref": 83,
+      "field": "price",
+      "original": 23.0,
+      "injected": -97.01,
+      "kind": "invalid_price"
+    },
+    {
+      "row_ref": 84,
+      "field": "price",
+      "original": 14.26,
+      "injected": -48.0,
+      "kind": "invalid_price"
+    },
+    {
+      "row_ref": 85,
+      "field": "price",
+      "original": 31.8,
+      "injected": -37.84,
+      "kind": "invalid_price"
+    },
+    {
+      "row_ref": 86,
+      "field": "price",
+      "original": 17.23,
+      "injected": -67.64,
+      "kind": "invalid_price"
+    },
+    {
+      "row_ref": 87,
+      "field": "price",
+      "original": 38.03,
+      "injected": -65.4,
+      "kind": "invalid_price"
+    },
+    {
+      "row_ref": 100,
+      "field": "stock",
+      "original": 34,
+      "injected": -11,
+      "kind": "negative_stock"
+    },
+    {
+      "row_ref": 101,
+      "field": "stock",
+      "original": 39,
+      "injected": -1,
+      "kind": "negative_stock"
+    },
+    {
+      "row_ref": 102,
+      "field": "stock",
+      "original": 44,
+      "injected": -13,
+      "kind": "negative_stock"
+    },
+    {
+      "row_ref": 103,
+      "field": "stock",
+      "original": 27,
+      "injected": -12,
+      "kind": "negative_stock"
+    },
+    {
+      "row_ref": 104,
+      "field": "stock",
+      "original": 39,
+      "injected": -8,
+      "kind": "negative_stock"
+    },
+    {
+      "row_ref": 105,
+      "field": "stock",
+      "original": 40,
+      "injected": -5,
+      "kind": "negative_stock"
+    },
+    {
+      "row_ref": 106,
+      "field": "stock",
+      "original": 41,
+      "injected": -19,
+      "kind": "negative_stock"
+    },
+    {
+      "row_ref": 107,
+      "field": "stock",
+      "original": 41,
+      "injected": -8,
+      "kind": "negative_stock"
+    },
+    {
+      "row_ref": 120,
+      "field": "category",
+      "original": "Electronics",
+      "injected": "Unknown",
+      "kind": "invalid_category"
+    },
+    {
+      "row_ref": 121,
+      "field": "category",
+      "original": "Clothing",
+      "injected": "Unknown",
+      "kind": "invalid_category"
+    },
+    {
+      "row_ref": 122,
+      "field": "category",
+      "original": "Home",
+      "injected": "Unknown",
+      "kind": "invalid_category"
+    },
+    {
+      "row_ref": 123,
+      "field": "category",
+      "original": "Kitchen",
+      "injected": "Unknown",
+      "kind": "invalid_category"
+    },
+    {
+      "row_ref": 124,
+      "field": "category",
+      "original": "Sports",
+      "injected": "Unknown",
+      "kind": "invalid_category"
+    },
+    {
+      "row_ref": 140,
+      "field": "price",
+      "original": 57.24,
+      "injected": 638.49,
+      "kind": "unusual_price"
+    },
+    {
+      "row_ref": 141,
+      "field": "price",
+      "original": 14.81,
+      "injected": 556.56,
+      "kind": "unusual_price"
+    },
+    {
+      "row_ref": 142,
+      "field": "price",
+      "original": 13.35,
+      "injected": 452.76,
+      "kind": "unusual_price"
+    },
+    {
+      "row_ref": 143,
+      "field": "price",
+      "original": 35.32,
+      "injected": 342.08,
+      "kind": "unusual_price"
+    },
+    {
+      "row_ref": 144,
+      "field": "price",
+      "original": 35.79,
+      "injected": 528.02,
+      "kind": "unusual_price"
+    },
+    {
+      "row_ref": 145,
+      "field": "price",
+      "original": 36.85,
+      "injected": 425.65,
+      "kind": "unusual_price"
+    },
+    {
+      "row_ref": 146,
+      "field": "price",
+      "original": 27.76,
+      "injected": 752.11,
+      "kind": "unusual_price"
+    },
+    {
+      "row_ref": 147,
+      "field": "price",
+      "original": 14.4,
+      "injected": 543.89,
+      "kind": "unusual_price"
+    },
+    {
+      "row_ref": 160,
+      "field": "category",
+      "original": "Electronics",
+      "injected": "Clothing",
+      "kind": "suspicious_label"
+    },
+    {
+      "row_ref": 161,
+      "field": "category",
+      "original": "Clothing",
+      "injected": "Home",
+      "kind": "suspicious_label"
+    },
+    {
+      "row_ref": 162,
+      "field": "category",
+      "original": "Home",
+      "injected": "Kitchen",
+      "kind": "suspicious_label"
+    },
+    {
+      "row_ref": 163,
+      "field": "category",
+      "original": "Kitchen",
+      "injected": "Sports",
+      "kind": "suspicious_label"
+    },
+    {
+      "row_ref": 164,
+      "field": "category",
+      "original": "Sports",
+      "injected": "Electronics",
+      "kind": "suspicious_label"
+    },
+    {
+      "row_ref": 165,
+      "field": "category",
+      "original": "Electronics",
+      "injected": "Clothing",
+      "kind": "suspicious_label"
+    },
+    {
+      "row_ref": 166,
+      "field": "category",
+      "original": "Clothing",
+      "injected": "Home",
+      "kind": "suspicious_label"
+    },
+    {
+      "row_ref": 167,
+      "field": "category",
+      "original": "Home",
+      "injected": "Kitchen",
+      "kind": "suspicious_label"
+    },
+    {
+      "row_ref": 168,
+      "field": "category",
+      "original": "Kitchen",
+      "injected": "Sports",
+      "kind": "suspicious_label"
+    },
+    {
+      "row_ref": 169,
+      "field": "category",
+      "original": "Sports",
+      "injected": "Electronics",
+      "kind": "suspicious_label"
+    },
+    {
+      "row_ref": 170,
+      "field": "category",
+      "original": "Electronics",
+      "injected": "Clothing",
+      "kind": "suspicious_label"
+    },
+    {
+      "row_ref": 171,
+      "field": "category",
+      "original": "Clothing",
+      "injected": "Home",
+      "kind": "suspicious_label"
+    },
+    {
+      "row_ref": 172,
+      "field": "category",
+      "original": "Home",
+      "injected": "Kitchen",
+      "kind": "suspicious_label"
+    },
+    {
+      "row_ref": 173,
+      "field": "category",
+      "original": "Kitchen",
+      "injected": "Sports",
+      "kind": "suspicious_label"
+    },
+    {
+      "row_ref": 174,
+      "field": "category",
+      "original": "Sports",
+      "injected": "Electronics",
+      "kind": "suspicious_label"
+    },
+    {
+      "row_ref": 180,
+      "field": "created_at",
+      "original": "2025-07-19",
+      "injected": "2025-02-30",
+      "kind": "invalid_date"
+    },
+    {
+      "row_ref": 181,
+      "field": "created_at",
+      "original": "2025-04-27",
+      "injected": "2025-02-30",
+      "kind": "invalid_date"
+    },
+    {
+      "row_ref": 182,
+      "field": "created_at",
+      "original": "2025-05-13",
+      "injected": "2025-02-30",
+      "kind": "invalid_date"
+    },
+    {
+      "row_ref": 1495,
+      "field": "product_id",
+      "original": 1496,
+      "injected": 1396,
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1495,
+      "field": "sku",
+      "original": "PRD-1496",
+      "injected": "PRD-1396",
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1495,
+      "field": "name",
+      "original": "Wireless Bluetooth Headphones \u2014 Edition 16",
+      "injected": "Portable USB Speaker \u2014 Edition 52",
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1495,
+      "field": "description",
+      "original": "Audio headset with wireless pairing and rechargeable battery. Series 16; finish compact.",
+      "injected": "Compact audio speaker for music streaming and bluetooth sound. Series 52; finish compact.",
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1495,
+      "field": "category",
+      "original": "Electronics",
+      "injected": "Electronics",
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1495,
+      "field": "price",
+      "original": 12.5,
+      "injected": 19.16,
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1495,
+      "field": "stock",
+      "original": 33,
+      "injected": 29,
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1495,
+      "field": "supplier",
+      "original": "Supplier 3",
+      "injected": "Supplier 8",
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1495,
+      "field": "created_at",
+      "original": "2025-01-03",
+      "injected": "2025-01-30",
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1496,
+      "field": "product_id",
+      "original": 1497,
+      "injected": 1397,
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1496,
+      "field": "sku",
+      "original": "PRD-1497",
+      "injected": "PRD-1397",
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1496,
+      "field": "name",
+      "original": "Cotton Crewneck Shirt \u2014 Edition 28",
+      "injected": "Lightweight Running Jacket \u2014 Edition 47",
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1496,
+      "field": "description",
+      "original": "Soft breathable cotton apparel with comfortable fabric fit. Series 28; finish compact.",
+      "injected": "Weather resistant outerwear with zip pockets and woven fabric. Series 47; finish classic.",
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1496,
+      "field": "category",
+      "original": "Clothing",
+      "injected": "Clothing",
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1496,
+      "field": "price",
+      "original": 20.48,
+      "injected": 45.7,
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1496,
+      "field": "stock",
+      "original": 33,
+      "injected": 41,
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1496,
+      "field": "supplier",
+      "original": "Supplier 4",
+      "injected": "Supplier 2",
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1496,
+      "field": "created_at",
+      "original": "2025-11-15",
+      "injected": "2025-02-04",
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1497,
+      "field": "product_id",
+      "original": 1498,
+      "injected": 1398,
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1497,
+      "field": "sku",
+      "original": "PRD-1498",
+      "injected": "PRD-1398",
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1497,
+      "field": "name",
+      "original": "Wooden Storage Shelf \u2014 Edition 66",
+      "injected": "Linen Cushion Cover \u2014 Edition 33",
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1497,
+      "field": "description",
+      "original": "Home organizer furniture with shelves for living room storage. Series 66; finish classic.",
+      "injected": "Decorative sofa cushion with woven textile for living room decor. Series 33; finish compact.",
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1497,
+      "field": "category",
+      "original": "Home",
+      "injected": "Home",
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1497,
+      "field": "price",
+      "original": 24.28,
+      "injected": 43.38,
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1497,
+      "field": "stock",
+      "original": 50,
+      "injected": 36,
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1497,
+      "field": "supplier",
+      "original": "Supplier 7",
+      "injected": "Supplier 8",
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1497,
+      "field": "created_at",
+      "original": "2025-01-07",
+      "injected": "2025-05-10",
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1498,
+      "field": "product_id",
+      "original": 1499,
+      "injected": 1399,
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1498,
+      "field": "sku",
+      "original": "PRD-1499",
+      "injected": "PRD-1399",
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1498,
+      "field": "name",
+      "original": "Silicone Baking Utensils \u2014 Edition 35",
+      "injected": "Silicone Baking Utensils \u2014 Edition 66",
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1498,
+      "field": "description",
+      "original": "Kitchen cooking tools for baking mixing and preparing food. Series 35; finish classic.",
+      "injected": "Kitchen cooking tools for baking mixing and preparing food. Series 66; finish classic.",
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1498,
+      "field": "category",
+      "original": "Kitchen",
+      "injected": "Kitchen",
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1498,
+      "field": "price",
+      "original": 29.52,
+      "injected": 29.21,
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1498,
+      "field": "stock",
+      "original": 24,
+      "injected": 28,
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1498,
+      "field": "supplier",
+      "original": "Supplier 8",
+      "injected": "Supplier 5",
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1498,
+      "field": "created_at",
+      "original": "2025-11-15",
+      "injected": "2025-01-05",
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1499,
+      "field": "product_id",
+      "original": 1500,
+      "injected": 1400,
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1499,
+      "field": "sku",
+      "original": "PRD-1500",
+      "injected": "PRD-1400",
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1499,
+      "field": "name",
+      "original": "Adjustable Dumbbell Set \u2014 Edition 40",
+      "injected": "Yoga Exercise Mat \u2014 Edition 56",
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1499,
+      "field": "description",
+      "original": "Strength training weights for exercise and fitness workouts. Series 40; finish compact.",
+      "injected": "Fitness workout mat with non slip grip for yoga training. Series 56; finish compact.",
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1499,
+      "field": "category",
+      "original": "Sports",
+      "injected": "Sports",
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1499,
+      "field": "price",
+      "original": 50.09,
+      "injected": 26.71,
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1499,
+      "field": "stock",
+      "original": 39,
+      "injected": 41,
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1499,
+      "field": "supplier",
+      "original": "Supplier 4",
+      "injected": "Supplier 5",
+      "kind": "exact_duplicate"
+    },
+    {
+      "row_ref": 1499,
+      "field": "created_at",
+      "original": "2025-02-27",
+      "injected": "2025-07-11",
+      "kind": "exact_duplicate"
+    }
+  ]
+}
